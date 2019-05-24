@@ -19,14 +19,12 @@ char c;
 String nome = "";
 
 int bip = 8;
-//String conteudoA = "";
-//String conteudoB = "";
-
 int QTDLinhas = 0;
 
+
+//Função para contar as linhas no arquivo 
 int ContarLinhas(){
-  File Arquivo = SD.open("brincos.txt");
-  int QTDLinhas = 0;
+  File Arquivo = SD.open("brincos.txt"); //Arquivo contendo os dados de alerta, no formato: númeroBrinco : alerta
   if(Arquivo){
     while(Arquivo.available()){
         byte B = Arquivo.read();
@@ -39,9 +37,10 @@ int ContarLinhas(){
   return QTDLinhas;
 }
 
+//Função para buscar as linhas no arquivo.
 void BuscarLinhas(int QTDLinhas, String* Linhas){
   int cont = 0;
-  File Arquivo = SD.open("brincos.txt");
+  File Arquivo = SD.open("brincos.txt"); //Arquivo contendo os dados de alerta, no formato: númeroBrinco : alerta
   if(Arquivo){
     while(Arquivo.available()){
       char crtr = (char)Arquivo.read();
@@ -54,6 +53,8 @@ void BuscarLinhas(int QTDLinhas, String* Linhas){
   return Linhas;
 }
 
+
+//Função para verificar a presença de um brinco com status ativo no arquivo
 bool TestarPresenca(String Entrada, String *Status, String Linhas[]){
   int cont = 0;
   for(cont = 0; cont < QTDLinhas; cont++){
@@ -67,12 +68,12 @@ return false;
 
 void setup(){
   Serial.begin(9600);
-  lcd.begin(); // set up the LCD's number of columns and rows:
+  lcd.begin(); // Inicia o LCD
   lcd.setBacklight(HIGH);
   lcd.print("APROXIME O");
   lcd.setCursor(0, 1);
   lcd.print("BRINCO DO LEITOR");
-  RFID.begin(9600); // set the data rate for the RFID reader
+  RFID.begin(9600); // Seta o DataRate do leitor de RFID
 
   pinMode (bip, OUTPUT);
 
@@ -81,11 +82,10 @@ void setup(){
     Serial.println("Não foi possível iniciar o cartão SD"); //Caso de o cartão não esteja disponível
   }
   rtc.halt(true);
-  //As linhas abaixo setam a data e hora do modulo
-  //e podem ser comentada apos a primeira utilizacao
+  //As linhas abaixo setam a data e hora do modulo, após a primeira utilização podem ser comentadas.
   rtc.setDOW(WEDNESDAY);      //Define o dia da semana
   rtc.setTime(21, 30, 0);     //Define o horario
-  rtc.setDate(07, 11, 2018);   //Define o dia, mes e ano\
+  rtc.setDate(07, 11, 2018);   //Define o dia, mes e ano
 
   //Definicoes do pino SQW/Out
   rtc.setSQWRate(SQW_RATE_1);
