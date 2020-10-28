@@ -2,7 +2,7 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <DS1307.h> //Biblioteca RTC DS1307
-#include <SD.h> //Biblioteca do cartão SD
+#include <SD.h> //Biblioteca do cartão SD 
 
 // Inicializa o display no endereco 0x27
 LiquidCrystal_I2C lcd(0x27, 16, 3);
